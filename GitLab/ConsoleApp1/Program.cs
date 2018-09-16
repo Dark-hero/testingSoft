@@ -38,14 +38,39 @@ namespace ConsoleApp1
                 Surname = "C",
                 Group = 2,
             };
+
             student3.Set("one", 10);
             student3.Set("two", 10);
             student3.Set("three", 10);
 
+            Student student4 = new Student
+            {
+                Name = "D",
+                Surname = "D",
+                Group = 2,
+            };
+            student4.Set("one", 5);
+            student4.Set("two", 2);
+            student4.Set("three", 3);
+
+
+            Student student5 = new Student
+            {
+                Name = "E",
+                Surname = "E",
+                Group = 2,
+            };
+            student5.Set("one", 9);
+            student5.Set("two", 8);
+            student5.Set("three", 7);
+
+
             listStudent.Add(student1);
             listStudent.Add(student2);
-            listStudent.Add(student3);            
-           
+            listStudent.Add(student3);
+            listStudent.Add(student4);
+            listStudent.Add(student5);
+
             float Sum_Subject = 0;
             int Person = listStudent.Count;
             foreach (var list in listStudent)
