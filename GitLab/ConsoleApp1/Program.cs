@@ -54,22 +54,11 @@ namespace ConsoleApp1
             student4.Set("three", 3);
 
 
-            Student student5 = new Student
-            {
-                Name = "E",
-                Surname = "E",
-                Group = 2,
-            };
-            student5.Set("one", 9);
-            student5.Set("two", 8);
-            student5.Set("three", 7);
-
 
             listStudent.Add(student1);
             listStudent.Add(student2);
             listStudent.Add(student3);
             listStudent.Add(student4);
-            listStudent.Add(student5);
 
             float Sum_Subject = 0;
             int Person = listStudent.Count;
