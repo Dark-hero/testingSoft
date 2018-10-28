@@ -1,43 +1,46 @@
 using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using NUnit.Framework;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using System.Threading;
 
 namespace selenium
 {
-    [TestFixture]
-    class Selenium
+    [TestClass]
+    public class UnitTest1
     {
-
-        private const string url = "https://www.skyscanner.ru/";
-
-        [Test]
-        static void Main(string[] args)
+        IWebDriver chrome = new ChromeDriver(@"D:\UCH\4KURS\Tests\lab1\ConsoleApp1\testingSoft\selenium\selenium\bin\Debug");
+        
+        [TestMethod]
+        public void TestMethod1()
         {
+
+            chrome.Navigate().GoToUrl("https://www.skyscanner.ru/");
+
+            chrome.FindElement(By.CssSelector(@"#origin-fsc-search")).SendKeys("Минск Интернэшнл 2 (MSQ)");
+
+            chrome.FindElement(By.CssSelector(@"#destination-fsc-search")).SendKeys("Баку Гейдар Алиев (GYD)");
+
+            chrome.FindElement(By.CssSelector(@"#flights-search-controls-root > div > div > form > div:nth-child(3) > button")).Click();
+
+            bool actual = false;
+            Thread.Sleep(500);
             try
-            { 
-                IWebDriver chrome = new ChromeDriver();
-                chrome.Url = url;
-                chrome.FindElement(By.Name("origin-fsc-search")).SendKeys("Минск Интернэшнл 2 (MSQ)");
-                chrome.FindElement(By.Name("destination-fsc-search")).SendKeys("Баку Гейдар Алиев (GYD)");
-                chrome.FindElement(By.Name("depart-fsc-datepicker-input")).SendKeys("11.11.2018");
-                chrome.FindElement(By.Name("return-fsc-datepicker-input")).SendKeys("31.12.2018");
-                chrome.FindElement(By.Id("bpk-button")).Click();
-                ReadOnlyCollection<IWebElement> h5elements = chrome.FindElements(By.TagName("h5"));
-                foreach (var h5 in h5elements)
-                {
-                    Assert.AreNotEqual(h5.Text.ToLower(), "Return".ToLower());
-                }
-            }
-            catch (NoSuchElementException exc)
             {
-                Console.WriteLine(exc.Message);
+
+                chrome.FindElement(By.CssSelector(@"#day-section > div > div.day-main-content > div.day-list-container.clearfix.fss-tap-anywhere.tap-b.animate-plane > div > ul > li:nth-child(1) > div > article > div > div.bpk-ticket__paper.bpk-ticket__stub.Ticket__cta-container-2J185.bpk-ticket__stub--padded.bpk-ticket__stub--horizontal"));
             }
+            catch (Exception)
+            {
+                actual = true;
+            }
+
+            Assert.AreEqual(true, actual);
+        }
+        [TestCleanup]
+        public void TearDown()
+        {
+            chrome.Quit();
         }
     }
 }
